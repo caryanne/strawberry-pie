@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Component.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogBox.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="fontstash.c">
+      <Filter>font-stash</Filter>
+    </ClCompile>
+    <ClCompile Include="Shapes.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="stb_truetype.c">
+      <Filter>font-stash</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Button.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogBox.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="fontstash.h">
+      <Filter>font-stash</Filter>
+    </ClInclude>
+    <ClInclude Include="Shapes.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_truetype.h">
+      <Filter>font-stash</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="font-stash">
+      <UniqueIdentifier>{57431cd9-f14f-4c33-b1dc-f64a990c14b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui">
+      <UniqueIdentifier>{36cfb345-3ce2-4ae6-a3bc-eb7ac654f5ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tools">
+      <UniqueIdentifier>{23e1a2d2-8040-4be7-b53e-7ab98883aaf7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

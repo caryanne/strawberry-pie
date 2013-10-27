@@ -8,20 +8,18 @@ using namespace std;
 
 class DialogBox: public Component {
 
-
 private:
-
-
 	string mTitle;
-	static const float mBorderThickness;
-	static const float mTitleHeight;
+	float mBorderThickness;
+	float mTitleHeight;
 	bool mDrag;
 	float mDragX;
 	float mDragY;
+	bool mMoveable;
 
 public:
 	DialogBox();
-	DialogBox(float x, float y, float width, float height, string title);
+	DialogBox(float x, float y, float width, float height, float borderThickness, float titleHeight, bool moveable, string title);
 
 	virtual void update(float x, float y);
 	virtual void draw();
@@ -30,8 +28,6 @@ public:
 	virtual bool mouseDown(float x, float y);
 	virtual void mouseUp();
 
-
-	void setSize(float width, float height);
 	void setTitle(string title);
 
 };

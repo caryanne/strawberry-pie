@@ -7,9 +7,10 @@
 #include "Text.h"
 
 #include "DialogBox.h"
+#include "Button.h"
 
 DialogBox root;
-
+Button test;
 
 void errorCallback(int error, const char* desc) {
 	fputs(desc, stderr);
@@ -20,7 +21,10 @@ static void keyCallback(GLFWwindow *window, int key, int scancode, int action, i
 		glfwSetWindowShouldClose(window, GL_TRUE);
 }
 
-
+void button_clicked() {
+	//test.setPosition(rand() % int(500.f-test.getWidth()),rand() % int(300.f-test.getHeight()));
+}
+	
 
 int main() {
 	GLFWwindow *window;
@@ -51,11 +55,16 @@ int main() {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	initText();
-	root = DialogBox(0,0,width,height,"spread'em 2014");
-	DialogBox helloworld = DialogBox(200,100,500,300,"fuck fuck fuck");
-	DialogBox kid = DialogBox(10,10,150,50,"kid");
+	root = DialogBox(0,0,width,height,0,19,false,"strawberry pie");
+	root.setColor(0.4f,0.4f,0.4f);
+	DialogBox helloworld = DialogBox(200,100,500,300,1,19,true,"fuck fuck fuck");
+	helloworld.setColor(0.f,0.3f,0.6f);
+
+	test = Button(5,5,120,30,1,"fuck this",button_clicked);
+	test.setColor(0.f,0.2f,0.5f);
+	helloworld.attach(&test);
 	root.attach(&helloworld);
-	helloworld.attach( &kid);
+	
 	
 	bool click = false;
 	double mouseX, mouseY;
@@ -86,13 +95,13 @@ int main() {
 		root.draw();
 		
 		//input/output
-		drawCircle(400,300,3,0.9f,0.9f,0.9f,1);
-		drawCircle(400,300,2,0.1f,0.1f,0.1f,1);
+		//drawCircle(400,300,3,0.9f,0.9f,0.9f,1);
+		//drawCircle(400,300,2,0.1f,0.1f,0.1f,1);
 
 		//button
-		drawBox(100,400,180,25,0.9f,0.9f,0.9f,1);
-		drawBox(101,401,178,23,0.5f,0.5f,0.5f,1);
-		drawText( 190,420,20,true,1,1,1,"fuck");
+		//drawBox(100,400,180,25,0.9f,0.9f,0.9f,1);
+		//drawBox(101,401,178,23,0.5f,0.5f,0.5f,1);
+		//drawText( 190,420,20,true,1,1,1,"fuck");
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

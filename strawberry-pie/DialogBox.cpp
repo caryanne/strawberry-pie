@@ -3,11 +3,10 @@
 #include "Shapes.h"
 #include "Text.h"
 
-const float DialogBox::mBorderThickness = 1.0f;
-const float DialogBox::mTitleHeight = 19.0f;
+
 
 bool DialogBox::mouseDown(float x, float y) {
-	if(x >= mX && x <= mX + mWidth + mBorderThickness * 2.f && y >= mY && y <= mY + mTitleHeight + mBorderThickness) {
+	if(mMoveable && x >= mX && x <= mX + mWidth + mBorderThickness * 2.f && y >= mY && y <= mY + mTitleHeight + mBorderThickness) {
 		mDrag = true;
 		mDragX = x - mX;
 		mDragY = y - mY;
@@ -29,18 +28,26 @@ void DialogBox::mouseUp() {
 DialogBox::DialogBox() {
 	mX = 100.f;
 	mY = 100.f;
+	mR = 1.f; mG = 1.f;	mB = 1.f;
 	mDrag = false;
 	mWidth = 400.f;
 	mHeight = 300.f;
 	mTitle = "new dialog box";
+	mBorderThickness = 1.0f;
+	mTitleHeight = 19.0f;
+	mMoveable = true;
+
 }
-DialogBox::DialogBox(float x, float y, float width, float height, string title) {
-	mX = x;
-	mY = y;
+DialogBox::DialogBox(float x, float y, float width, float height, float borderThickness, float titleHeight, bool moveable, string title) {
+	mX = x;	mY = y; mR = 1.f; mG = 1.f;	mB = 1.f;
 	mDrag = false;
 	mWidth = width;
 	mHeight = height;
 	mTitle = title;
+	mMoveable = moveable;
+	mBorderThickness = borderThickness;
+	mTitleHeight = titleHeight;
+
 }
 
 void DialogBox::update(float x, float y) {
@@ -67,13 +74,13 @@ void DialogBox::draw() {
 
 void DialogBox::draw(float xOffset, float yOffset) {
 	if(mDrag)
-		drawBox(mX + xOffset, mY + yOffset, mWidth, mHeight, 0.2f, 0.6f, 1.0f, 1); //border & title bar
+		drawBox(mX + xOffset, mY + yOffset, mWidth, mHeight, mR * 0.7f, mG * 0.7f, mB * 0.7f, 1); //border & title bar
 	else
-		drawBox(mX + xOffset, mY + yOffset, mWidth, mHeight, 0.9f, 0.9f, 0.9f, 1); //border & title bar
+		drawBox(mX + xOffset, mY + yOffset, mWidth, mHeight, mR * 0.9f, mG * 0.9f, mB * 0.9f, 1); //border & title bar
 	drawBox(mX + xOffset + mBorderThickness, mY + yOffset + mBorderThickness + mTitleHeight,
-		mWidth - 2 * mBorderThickness, mHeight - 2 * mBorderThickness - mTitleHeight, 0.1f, 0.1f, 0.1f, 1); //inner section
+		mWidth - 2 * mBorderThickness, mHeight - 2 * mBorderThickness - mTitleHeight, mR * 0.5f, mG * 0.5f, mB * 0.5f, 1); //inner section
 
-	drawText(mX + xOffset + mWidth / 2.f, mY + yOffset + mTitleHeight * 0.8f, mTitleHeight + 1.f, true, 0.1f, 0.1f, 0.1f, mTitle.c_str()); //title
+	drawText(mX + xOffset + mWidth / 2.f, mY + yOffset + mTitleHeight * 0.8f, mTitleHeight + 1.f, true, 0.9f, 0.9f, 0.9f, mTitle.c_str()); //title
 	for( vector<Component*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it ) {
 		(*it)->draw(mX + mBorderThickness + xOffset, mY + mBorderThickness + mTitleHeight + yOffset);
 	}

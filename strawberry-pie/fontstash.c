@@ -614,7 +614,6 @@ float get_text_width(struct sth_stash* stash,
 	unsigned int state = 0;
 	struct sth_quad q;
 	short isize = (short)(size*10.0f);
-	float* v;
 	struct sth_font* fnt = NULL;
 	float x = 0.f;
 	float y = 0.f;

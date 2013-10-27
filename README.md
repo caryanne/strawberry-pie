@@ -4,16 +4,12 @@ math/sim shit
 
 todo
 --------
-* ui elements:
-	dialog box  
-	button  
+* ui elements:  
 	text box  
 	label  
-	input  
-	output  
-* dialog box options:
-	color  
-	unmovable  
+	slider  
+* dialog box options:  
+
 
 
 requires
