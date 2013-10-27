@@ -28,7 +28,7 @@ void DialogBox::mouseUp() {
 DialogBox::DialogBox() {
 	mX = 100.f;
 	mY = 100.f;
-	mR = 1.f; mG = 1.f;	mB = 1.f;
+	mR = 0.25f; mG = 0.25f;	mB = 0.25f;
 	mDrag = false;
 	mWidth = 400.f;
 	mHeight = 300.f;
@@ -39,7 +39,7 @@ DialogBox::DialogBox() {
 
 }
 DialogBox::DialogBox(float x, float y, float width, float height, float borderThickness, float titleHeight, bool moveable, string title) {
-	mX = x;	mY = y; mR = 1.f; mG = 1.f;	mB = 1.f;
+	mX = x;	mY = y; mR = 0.25f; mG = 0.25f;	mB = 0.25f;
 	mDrag = false;
 	mWidth = width;
 	mHeight = height;

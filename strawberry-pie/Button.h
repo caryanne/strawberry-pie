@@ -13,11 +13,11 @@ private:
 	bool mClick;
 	bool mOver;
 	float mBorderThickness;
-	void (*mCallback)();
-
+	void (*mClickCallback)();
+	void (*mHoldCallback)();
 public:
 	Button();
-	Button(float x, float y, float width, float height, float borderThickness, string label, void (*callback)());
+	Button(float x, float y, float width, float height, float borderThickness, string label, void (*clickCallback)(), void (*holdCallback)());
 
 	virtual void update(float x, float y);
 	virtual void draw();

@@ -10,7 +10,8 @@
 #include "Button.h"
 
 DialogBox root;
-Button test;
+
+DialogBox helloworld;
 
 void errorCallback(int error, const char* desc) {
 	fputs(desc, stderr);
@@ -21,10 +22,12 @@ static void keyCallback(GLFWwindow *window, int key, int scancode, int action, i
 		glfwSetWindowShouldClose(window, GL_TRUE);
 }
 
-void button_clicked() {
-	//test.setPosition(rand() % int(500.f-test.getWidth()),rand() % int(300.f-test.getHeight()));
+void right() {
+	helloworld.setPosition(helloworld.getX()+0.01f,helloworld.getY());
 }
-	
+void left() {
+	helloworld.setPosition(helloworld.getX()-0.01f,helloworld.getY());
+}
 
 int main() {
 	GLFWwindow *window;
@@ -57,12 +60,15 @@ int main() {
 	initText();
 	root = DialogBox(0,0,width,height,0,19,false,"strawberry pie");
 	root.setColor(0.4f,0.4f,0.4f);
-	DialogBox helloworld = DialogBox(200,100,500,300,1,19,true,"fuck fuck fuck");
+	helloworld = DialogBox(200,100,500,300,1,19,true,"fuck fuck fuck");
 	helloworld.setColor(0.f,0.3f,0.6f);
 
-	test = Button(5,5,120,30,1,"fuck this",button_clicked);
-	test.setColor(0.f,0.2f,0.5f);
-	helloworld.attach(&test);
+	Button lb = Button(10,5,120,120,1,"left",NULL,left);
+	Button rb = Button(200,5,120,120,1,"right",NULL,right);
+
+	
+	helloworld.attach(&rb);
+	helloworld.attach(&lb);
 	root.attach(&helloworld);
 	
 	

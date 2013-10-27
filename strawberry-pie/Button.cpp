@@ -8,7 +8,7 @@ void Button::setLabel(string label) {
 }
 
 Button::Button() {
-	mR = 1.f; mG = 1.f;	mB = 1.f;
+	mR = 0.25f; mG = 0.25f;	mB = 0.25f;
 	mX = 100.f;
 	mY = 100.f;
 	mClick = false;
@@ -17,17 +17,19 @@ Button::Button() {
 	mHeight = 50.f;
 	mLabel = "new button";
 	mBorderThickness = 1.f;
-	mCallback = NULL;
+	mClickCallback = NULL;
+	mHoldCallback = NULL;
 }
-Button::Button(float x, float y, float width, float height, float borderThickness, string label, void (*callback)()) {
-	mX = x;	mY = y; mR = 1.f; mG = 1.f;	mB = 1.f;
+Button::Button(float x, float y, float width, float height, float borderThickness, string label, void (*clickCallback)(), void (*holdCallback)()) {
+	mX = x;	mY = y; mR = 0.25f; mG = 0.25f;	mB = 0.25f;
 	mClick = false;
 	mOver = false;
 	mWidth = width;
 	mBorderThickness = borderThickness;
 	mHeight = height;
 	mLabel = label;
-	mCallback = callback;
+	mClickCallback = clickCallback;
+	mHoldCallback = holdCallback;
 
 }
 
@@ -67,8 +69,8 @@ bool Button::mouseDown(float x, float y) {
 void Button::mouseUp() {
 	
 	if(mOver && mClick) {
-		if(mCallback != NULL)
-			mCallback();
+		if(mClickCallback != NULL)
+			mClickCallback();
 	}
 	mClick = false;
 	for( vector<Component*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it )
@@ -76,5 +78,7 @@ void Button::mouseUp() {
 }
 
 void Button::update(float x, float y) {
-	mOver = (x >= mX && x <= mX + mWidth + mBorderThickness * 2.f && y >= mY && y <= mY + mHeight);		
+	mOver = (x >= mX && x <= mX + mWidth + mBorderThickness * 2.f && y >= mY && y <= mY + mHeight);	
+	if(mOver && mClick && mHoldCallback != NULL)
+		mHoldCallback();
 }
