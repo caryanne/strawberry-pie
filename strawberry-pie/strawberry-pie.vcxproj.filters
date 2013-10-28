@@ -5,9 +5,6 @@
     <ClCompile Include="Component.cpp">
       <Filter>ui</Filter>
     </ClCompile>
-    <ClCompile Include="DialogBox.cpp">
-      <Filter>ui</Filter>
-    </ClCompile>
     <ClCompile Include="fontstash.c">
       <Filter>font-stash</Filter>
     </ClCompile>
@@ -23,15 +20,18 @@
     <ClCompile Include="Button.cpp">
       <Filter>ui</Filter>
     </ClCompile>
+    <ClCompile Include="Frame.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="Shapes3d.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h">
       <Filter>ui</Filter>
     </ClInclude>
     <ClInclude Include="Component.h">
-      <Filter>ui</Filter>
-    </ClInclude>
-    <ClInclude Include="DialogBox.h">
       <Filter>ui</Filter>
     </ClInclude>
     <ClInclude Include="fontstash.h">
@@ -44,6 +44,12 @@
       <Filter>font-stash</Filter>
     </ClInclude>
     <ClInclude Include="Text.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Frame.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="Shapes3d.h">
       <Filter>tools</Filter>
     </ClInclude>
   </ItemGroup>

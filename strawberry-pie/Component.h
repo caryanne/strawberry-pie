@@ -3,17 +3,20 @@
 
 #include <vector>
 
+
 class Component {
 
 private:
 public:
 
 	std::vector<Component*> mChildren;
+
 	void attach(Component *component);
 	float mX;
 	float mY;
 	float mWidth;
 	float mHeight;
+
 	float mR;
 	float mG;
 	float mB;
@@ -30,6 +33,7 @@ public:
 	float getY() { return mY; }
 	float getWidth() { return mWidth; }
 	float getHeight() { return mHeight; }
+	
 	void setSize(float width, float height) { mWidth = width; mHeight = height; }
 	void setPosition(float x, float y) { mX = x; mY = y; }
 	void setColor(float r, float g, float b) { mR = r; mG = g; mB = b; }

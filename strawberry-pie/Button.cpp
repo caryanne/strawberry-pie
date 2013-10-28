@@ -45,8 +45,8 @@ void Button::draw(float xOffset, float yOffset) {
 		color = 0.8f;
 	else
 		color = 1.f;
-	drawBox(mX + xOffset, mY + yOffset, mWidth, mHeight, mR * 0.9f, mG * 0.9f, mB * 0.9f, 1);
-	drawBox(mX + xOffset + mBorderThickness, mY + yOffset + mBorderThickness,
+	drawRect(mX + xOffset, mY + yOffset, mWidth, mHeight, mR * 0.9f, mG * 0.9f, mB * 0.9f, 1);
+	drawRect(mX + xOffset + mBorderThickness, mY + yOffset + mBorderThickness,
 		mWidth - 2 * mBorderThickness, mHeight - 2 * mBorderThickness, mR * color, mG * color, mB * color, 1);
 
 	drawText(mX + xOffset + mWidth / 2.f, mY + yOffset + mHeight / 2.f + 7.f, 20.f, true, 0.9f, 0.9f, 0.9f, mLabel.c_str());
