@@ -85,13 +85,8 @@ void setup3D(double x, double y, double w, double h) {
 	float pos[] = {0, 1, -1, 0};
 	glLightfv(GL_LIGHT0, GL_POSITION, pos);
 	glEnable(GL_TEXTURE_2D);
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE,GL_REPLACE);
 	
-
-
-
-	
-    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 }
 
@@ -186,14 +181,15 @@ int main() {
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		glTranslatef(0,-0.5f,0);
+		glBindTexture(GL_TEXTURE_2D, gtex);
 		drawBox(10,0.1f,10,0.5f,0.5f,0,1);
 		glTranslatef(0,0.5f,0);
 		glTranslatef(bx,0.f,by);
 		glRotatef(tangle + 90,0,1,0);
-		glBindTexture(GL_TEXTURE_2D, gtex);
+		
 		drawBox(2,1,3,0,0.5f,0,1);
 		glTranslatef(0,0.75f,1);
-		glBindTexture(GL_TEXTURE_2D, gtex);
+
 		drawBox(1,0.5f,1,0.75f,0,0,1);
 
 		setup2D(width, height);

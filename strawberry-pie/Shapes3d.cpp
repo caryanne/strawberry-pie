@@ -18,7 +18,7 @@ void drawBox(float width, float height, float length, float r, float g, float b,
 	float topFrontLeft[] = {leftX, topY, frontZ};
 	
 	float color[] = {r, g, b, a};
-	//glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
+	glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
 
 
 	glNormal3f(1.f,0.f,0.f);//left
@@ -33,22 +33,57 @@ void drawBox(float width, float height, float length, float r, float g, float b,
 
 	
 	glNormal3f(-1.f,0.f,0.f);//right
-	glVertex3fv(bottomBackRight);glVertex3fv(bottomFrontRight);glVertex3fv(topFrontRight);glVertex3fv(topBackRight);
+	glTexCoord2f(0.f,0.f);
+	glVertex3fv(bottomBackRight);
+	glTexCoord2f(1.f,0.f);
+	glVertex3fv(bottomFrontRight);
+	glTexCoord2f(1.f,1.f);
+	glVertex3fv(topFrontRight);
+	glTexCoord2f(0.f,1.f);
+	glVertex3fv(topBackRight);
 	
 	
 	glNormal3f(0.f,0.f,1.f);//back
-	glVertex3fv(bottomBackRight);glVertex3fv(bottomBackLeft);glVertex3fv(topBackLeft);glVertex3fv(topBackRight);
+	glTexCoord2f(0.f,0.f);
+	glVertex3fv(bottomBackRight);
+	glTexCoord2f(1.f,0.f);
+	glVertex3fv(bottomBackLeft);
+	glTexCoord2f(1.f,1.f);
+	glVertex3fv(topBackLeft);
+	glTexCoord2f(0.f,1.f);
+	glVertex3fv(topBackRight);
 
 
 	glNormal3f(0.f,0.f,-1.f);//front
-	glVertex3fv(bottomFrontRight);glVertex3fv(bottomFrontLeft);glVertex3fv(topFrontLeft);glVertex3fv(topFrontRight);
-	glColor3f(1,1,1);
+	glTexCoord2f(0.f,0.f);
+	glVertex3fv(bottomFrontRight);
+	glTexCoord2f(1.f,0.f);
+	glVertex3fv(bottomFrontLeft);
+	glTexCoord2f(1.f,1.f);
+	glVertex3fv(topFrontLeft);
+	glTexCoord2f(0.f,1.f);
+	glVertex3fv(topFrontRight);
+
 
 	glNormal3f(0.f,1.f,0.f);//top
-	glVertex3fv(topFrontRight);glVertex3fv(topFrontLeft);glVertex3fv(topBackLeft);glVertex3fv(topBackRight);
+	glTexCoord2f(0.f,0.f);
+	glVertex3fv(topFrontRight);
+	glTexCoord2f(1.f,0.f);
+	glVertex3fv(topFrontLeft);
+	glTexCoord2f(1.f,1.f);
+	glVertex3fv(topBackLeft);
+	glTexCoord2f(0.f,1.f);
+	glVertex3fv(topBackRight);
 	
 	glNormal3f(0.f,-1.f,0.f);//bottom
-	glVertex3fv(bottomFrontRight);glVertex3fv(bottomFrontLeft);glVertex3fv(bottomBackLeft);glVertex3fv(bottomBackRight);
+	glTexCoord2f(0.f,0.f);
+	glVertex3fv(bottomFrontRight);
+	glTexCoord2f(1.f,0.f);
+	glVertex3fv(bottomFrontLeft);
+	glTexCoord2f(1.f,1.f);
+	glVertex3fv(bottomBackLeft);
+	glTexCoord2f(0.f,1.f);
+	glVertex3fv(bottomBackRight);
 	glEnd();
 	//glEnable(GL_LIGHTING);
 }
