@@ -18,10 +18,18 @@ void drawBox(float width, float height, float length, float r, float g, float b,
 	float topFrontLeft[] = {leftX, topY, frontZ};
 	
 	float color[] = {r, g, b, a};
-	glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
+	//glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
+
 
 	glNormal3f(1.f,0.f,0.f);//left
-	glVertex3fv(bottomBackLeft);glVertex3fv(bottomFrontLeft);glVertex3fv(topFrontLeft);glVertex3fv(topBackLeft);
+	glTexCoord2f(0.f,0.f);
+	glVertex3fv(bottomBackLeft);
+	glTexCoord2f(1.f,0.f);
+	glVertex3fv(bottomFrontLeft);
+	glTexCoord2f(1.f,1.f);
+	glVertex3fv(topFrontLeft);
+	glTexCoord2f(0.f,1.f);
+	glVertex3fv(topBackLeft);
 
 	
 	glNormal3f(-1.f,0.f,0.f);//right

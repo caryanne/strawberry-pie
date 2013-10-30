@@ -25,7 +25,7 @@ float bx;
 float by;
 float tangle;
 float cangle;
-
+GLuint gtex;
 
 void errorCallback(int error, const char* desc) {
 	fputs(desc, stderr);
@@ -81,11 +81,17 @@ void setup3D(double x, double y, double w, double h) {
 	glEnable(GL_BLEND);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
-	glEnable(GL_TEXTURE_2D);
+	glShadeModel(GL_FLAT);
 	float pos[] = {0, 1, -1, 0};
 	glLightfv(GL_LIGHT0, GL_POSITION, pos);
-	glShadeModel(GL_SMOOTH);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_TEXTURE_2D);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE,GL_REPLACE);
+	
+
+
+
+	
+    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 }
 
@@ -144,7 +150,8 @@ int main() {
 	bool click = false;
 	double mouseX, mouseY;
 
-	int gtex = SOIL_load_OGL_texture("ground.png",SOIL_LOAD_AUTO,SOIL_CREATE_NEW_ID,SOIL_FLAG_MIPMAPS|SOIL_FLAG_COMPRESS_TO_DXT|SOIL_FLAG_NTSC_SAFE_RGB);
+	gtex = SOIL_load_OGL_texture("ground.png",SOIL_LOAD_AUTO,SOIL_CREATE_NEW_ID,SOIL_FLAG_NTSC_SAFE_RGB);
+	
 
 
 	while(!glfwWindowShouldClose(window)) {
@@ -183,9 +190,10 @@ int main() {
 		glTranslatef(0,0.5f,0);
 		glTranslatef(bx,0.f,by);
 		glRotatef(tangle + 90,0,1,0);
-		
+		glBindTexture(GL_TEXTURE_2D, gtex);
 		drawBox(2,1,3,0,0.5f,0,1);
 		glTranslatef(0,0.75f,1);
+		glBindTexture(GL_TEXTURE_2D, gtex);
 		drawBox(1,0.5f,1,0.75f,0,0,1);
 
 		setup2D(width, height);
