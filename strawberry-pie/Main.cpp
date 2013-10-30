@@ -12,6 +12,8 @@
 #include "Frame.h"
 #include "Button.h"
 
+#include "soil\SOIL.h"
+
 #define DEG_TO_RAD 3.141592654 / 180.0
 
 Frame root;
@@ -79,6 +81,7 @@ void setup3D(double x, double y, double w, double h) {
 	glEnable(GL_BLEND);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
+	glEnable(GL_TEXTURE_2D);
 	float pos[] = {0, 1, -1, 0};
 	glLightfv(GL_LIGHT0, GL_POSITION, pos);
 	glShadeModel(GL_SMOOTH);
@@ -140,6 +143,10 @@ int main() {
 	cangle = 0.f;
 	bool click = false;
 	double mouseX, mouseY;
+
+	int gtex = SOIL_load_OGL_texture("ground.png",SOIL_LOAD_AUTO,SOIL_CREATE_NEW_ID,SOIL_FLAG_MIPMAPS|SOIL_FLAG_COMPRESS_TO_DXT|SOIL_FLAG_NTSC_SAFE_RGB);
+
+
 	while(!glfwWindowShouldClose(window)) {
 		
 		glfwGetCursorPos(window, &mouseX, &mouseY);

@@ -6,16 +6,10 @@
       <Filter>ui</Filter>
     </ClCompile>
     <ClCompile Include="fontstash.c">
-      <Filter>font-stash</Filter>
-    </ClCompile>
-    <ClCompile Include="Shapes.cpp">
-      <Filter>tools</Filter>
+      <Filter>tools\font-stash</Filter>
     </ClCompile>
     <ClCompile Include="stb_truetype.c">
-      <Filter>font-stash</Filter>
-    </ClCompile>
-    <ClCompile Include="Text.cpp">
-      <Filter>tools</Filter>
+      <Filter>tools\font-stash</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
       <Filter>ui</Filter>
@@ -23,8 +17,29 @@
     <ClCompile Include="Frame.cpp">
       <Filter>ui</Filter>
     </ClCompile>
+    <ClCompile Include="tiny_obj_loader.cc">
+      <Filter>tools\tiny-obj-loader</Filter>
+    </ClCompile>
+    <ClCompile Include="Shapes.cpp">
+      <Filter>tools\primitives</Filter>
+    </ClCompile>
     <ClCompile Include="Shapes3d.cpp">
-      <Filter>tools</Filter>
+      <Filter>tools\primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>tools\primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="soil\image_DXT.c">
+      <Filter>tools\soil</Filter>
+    </ClCompile>
+    <ClCompile Include="soil\image_helper.c">
+      <Filter>tools\soil</Filter>
+    </ClCompile>
+    <ClCompile Include="soil\SOIL.c">
+      <Filter>tools\soil</Filter>
+    </ClCompile>
+    <ClCompile Include="soil\stb_image_aug.c">
+      <Filter>tools\soil</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -35,36 +50,66 @@
       <Filter>ui</Filter>
     </ClInclude>
     <ClInclude Include="fontstash.h">
-      <Filter>font-stash</Filter>
-    </ClInclude>
-    <ClInclude Include="Shapes.h">
-      <Filter>tools</Filter>
+      <Filter>tools\font-stash</Filter>
     </ClInclude>
     <ClInclude Include="stb_truetype.h">
-      <Filter>font-stash</Filter>
-    </ClInclude>
-    <ClInclude Include="Text.h">
-      <Filter>tools</Filter>
+      <Filter>tools\font-stash</Filter>
     </ClInclude>
     <ClInclude Include="Frame.h">
       <Filter>ui</Filter>
     </ClInclude>
+    <ClInclude Include="tiny_obj_loader.h">
+      <Filter>tools\tiny-obj-loader</Filter>
+    </ClInclude>
+    <ClInclude Include="Shapes.h">
+      <Filter>tools\primitives</Filter>
+    </ClInclude>
     <ClInclude Include="Shapes3d.h">
-      <Filter>tools</Filter>
+      <Filter>tools\primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>tools\primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="soil\stbi_DDS_aug_c.h">
+      <Filter>tools\soil</Filter>
+    </ClInclude>
+    <ClInclude Include="soil\image_DXT.h">
+      <Filter>tools\soil</Filter>
+    </ClInclude>
+    <ClInclude Include="soil\image_helper.h">
+      <Filter>tools\soil</Filter>
+    </ClInclude>
+    <ClInclude Include="soil\SOIL.h">
+      <Filter>tools\soil</Filter>
+    </ClInclude>
+    <ClInclude Include="soil\stb_image_aug.h">
+      <Filter>tools\soil</Filter>
+    </ClInclude>
+    <ClInclude Include="soil\stbi_DDS_aug.h">
+      <Filter>tools\soil</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="font-stash">
-      <UniqueIdentifier>{57431cd9-f14f-4c33-b1dc-f64a990c14b8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ui">
       <UniqueIdentifier>{36cfb345-3ce2-4ae6-a3bc-eb7ac654f5ba}</UniqueIdentifier>
     </Filter>
     <Filter Include="tools">
       <UniqueIdentifier>{23e1a2d2-8040-4be7-b53e-7ab98883aaf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tools\font-stash">
+      <UniqueIdentifier>{57431cd9-f14f-4c33-b1dc-f64a990c14b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tools\tiny-obj-loader">
+      <UniqueIdentifier>{54a2df68-0637-4eab-8245-209ac8967396}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tools\primitives">
+      <UniqueIdentifier>{fca93d44-905f-4ad3-960e-a1f2981f1f72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tools\soil">
+      <UniqueIdentifier>{119f6a73-aab5-47ad-821f-2de733a22389}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
