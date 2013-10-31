@@ -93,6 +93,7 @@ void Frame::draw(float xOffset, float yOffset) {
 }
 void Frame::setup3D(float height, float yOffset) {
 	glClear(GL_DEPTH_BUFFER_BIT);
+
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	
@@ -102,19 +103,19 @@ void Frame::setup3D(float height, float yOffset) {
 	float y = height - (mY + mBorderThickness + mTitleHeight + yOffset);
 
 	gluPerspective(45.f, w / h, 0.1f, 100.f);
-	glViewport(x, y - h, w, h);
+	glViewport((int)x, int(y - h), (int)w, (int)h);
+
 	glDepthFunc(GL_LEQUAL);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
-	glShadeModel(GL_FLAT);
+	glShadeModel(GL_SMOOTH);
+
 	float pos[] = {20,3,20,0};
 	glLightfv(GL_LIGHT0, GL_POSITION, pos);
-	glEnable(GL_TEXTURE_2D);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-
 }
 
 void Frame::setTitle(string title) {

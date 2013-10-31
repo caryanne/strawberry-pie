@@ -22,7 +22,7 @@ GLFWwindow *window;
 Frame root;
 Frame camctrl;
 
-float cangle;
+float cangle = 0.f;
 
 void errorCallback(int error, const char* desc) {
 	fputs(desc, stderr);
@@ -33,23 +33,19 @@ static void keyCallback(GLFWwindow *window, int key, int scancode, int action, i
 		glfwSetWindowShouldClose(window, GL_TRUE);
 }
 
-void cright() {
-	cangle += 0.05f;
-}
-void cleft() {
-	cangle -=0.05f;
-}
+void cright() {	cangle += 0.05f; }
+void cleft() { cangle -=0.05f; }
 
 void setup2D(double w, double h) {
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluOrtho2D(0.f, w, h, 0.f);
-	glViewport(0, 0, w, h);
-	glEnable(GL_BLEND);
+	glViewport(0, 0, (int)w, (int)h);
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_LIGHTING);
 	glDisable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
@@ -59,7 +55,7 @@ int main() {
 	if(!glfwInit())
 		exit(EXIT_FAILURE);
 
-	window = glfwCreateWindow(1360,768, "strawberry pie", glfwGetPrimaryMonitor(), NULL);
+	window = glfwCreateWindow(1360, 768, "strawberry pie", glfwGetPrimaryMonitor(), NULL);
 	if(!window) {
 		glfwTerminate();
 		exit(EXIT_FAILURE);
@@ -69,25 +65,22 @@ int main() {
 	glfwSetKeyCallback(window, keyCallback);	
 	int width, height;
 	glfwGetFramebufferSize(window, &width, &height);
-	
-	initText();
-	root = Frame(0,0,width,height,0,19,false,"chicago");
 
+	root = Frame(0, 0, width, height, 0, 19, false, "chicago");
 	root.dontDrawChildren();
 
-	camctrl = Frame(100,300,162,50,1,0,true,"");
+	camctrl = Frame(100, 300, 162, 50, 1, 0, true, "");
 
-	Button clb = Button(0,0,80,50,1,"left",NULL,cleft);
-	Button crb = Button(200,0,80,50,1,"right",NULL,cright);
-
+	Button clb = Button(0, 0, 80, 50, 1, "left", NULL, cleft);
+	Button crb = Button(200, 0, 80, 50, 1, "right", NULL, cright);
 	camctrl.attach(&clb);
 	camctrl.attach(&crb);
 	root.attach(&camctrl);
-	
-	cangle = 0.f;
+
 	bool click = false;
 	double mouseX, mouseY;
 
+	initText();
 	Model puss = Model("pib2.obj");
 
 	while(!glfwWindowShouldClose(window)) {
@@ -114,16 +107,13 @@ int main() {
 		root.draw();
 		root.setup3D(height, 0.f);
 
-		gluLookAt(0,0.9f,2.5f,0,0.1f,0,0,1,0);
-		
-		glShadeModel(GL_SMOOTH);
-		glDisable(GL_BLEND);
+		gluLookAt(0.f, 0.9f, 2.5f,
+					0.f, 0.1f, 0.f,
+					0.f, 1.f, 0.f);
+
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		//glScalef(10.01f,10.01f,10.01f);
-		glRotatef(cangle,0,1.f,0);
-		//glRotatef(-90,1,0,0);
-			
+		glRotatef(cangle, 0.f, 1.f, 0.f);			
 		puss.render();
 
 		setup2D(width, height);
@@ -131,9 +121,6 @@ int main() {
 		glLoadIdentity();
 
 		camctrl.draw(root.getBorderThickness(), root.getBorderThickness() + root.getTitleHeight());
-
-		
-
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
