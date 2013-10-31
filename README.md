@@ -1,22 +1,20 @@
 strawberry pie
 ========
-
 ![logo](pie.jpg)
-
 todo
 --------
-* ui elements:  
-	text box  
-	label  
-	slider  
-* dialog box options:  
+* more ui elements (text box, labels, sliders)
+* more ui options
+* shaders  
+* logging system
+* error handling
+* clean up how the ui works
 
 
-
-requires
+strawberry pie uses the following libraries
 --------
-GLFW3  
-Font-Stash
-Bullet
-tiny-obj-loader
-SOIL
+* GLFW3  
+* Font-Stash  
+* Bullet  
+* tiny-obj-loader  
+* SOIL  
