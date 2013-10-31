@@ -13,19 +13,21 @@
 #include "Button.h"
 
 #include "soil\SOIL.h"
+#include "tiny_obj_loader.h"
 
 #define DEG_TO_RAD 3.141592654 / 180.0
 
 Frame root;
 
-Frame twrctrl;
 Frame camctrl;
 
-float bx;
-float by;
-float tangle;
 float cangle;
-GLuint gtex;
+
+unsigned tex1;
+unsigned tex2;
+unsigned tex3;
+
+vector<tinyobj::shape_t> shapes;
 
 void errorCallback(int error, const char* desc) {
 	fputs(desc, stderr);
@@ -43,23 +45,8 @@ void cleft() {
 	cangle -=0.05f;
 }
 
-void right() {
-	tangle -= 0.05f;
-}
-void left() {
-	tangle += 0.05f;
-}
-
-void up() {
-	bx += cos(tangle * DEG_TO_RAD) * 0.001f;
-	by -= sin(tangle * DEG_TO_RAD) * 0.001f;
-}
-void down() {
-	bx -= cos(tangle * DEG_TO_RAD) * 0.001f;
-	by += sin(tangle * DEG_TO_RAD) * 0.001f;
-}
-
 void setup2D(double w, double h) {
+
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluOrtho2D(0.f, w, h, 0.f);
@@ -67,10 +54,12 @@ void setup2D(double w, double h) {
 	glEnable(GL_BLEND);
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_LIGHTING);
+	glDisable(GL_TEXTURE_2D);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void setup3D(double x, double y, double w, double h) {
+/*void setup3D(double x, double y, double w, double h) {
+	glClear(GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	
@@ -88,21 +77,26 @@ void setup3D(double x, double y, double w, double h) {
 	
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+}*/
+
+void loadMedia() {
+	tinyobj::LoadObj(shapes,"pib2.obj");
+	tex2 = SOIL_load_OGL_texture("p2.png",SOIL_LOAD_AUTO,SOIL_CREATE_NEW_ID,SOIL_FLAG_INVERT_Y|SOIL_FLAG_NTSC_SAFE_RGB);
+	tex1 = SOIL_load_OGL_texture("p1.jpg",SOIL_LOAD_AUTO,SOIL_CREATE_NEW_ID,SOIL_FLAG_INVERT_Y|SOIL_FLAG_NTSC_SAFE_RGB);
+	tex3 = SOIL_load_OGL_texture("1174.png",SOIL_LOAD_AUTO,SOIL_CREATE_NEW_ID,SOIL_FLAG_INVERT_Y|SOIL_FLAG_NTSC_SAFE_RGB);
 }
 
+
 int main() {
+	
 	GLFWwindow *window;
 	
-	bx = 0.f;
-	by = 0.f;
-	tangle = 0.f;
-
 	glfwSetErrorCallback(errorCallback);
 	if(!glfwInit())
 		exit(EXIT_FAILURE);
 	
 
-	window = glfwCreateWindow(1360, 768, "strawberry pie", glfwGetPrimaryMonitor(), NULL);
+	window = glfwCreateWindow(1360,768, "strawberry pie", glfwGetPrimaryMonitor(), NULL);
 	if(!window) {
 		glfwTerminate();
 		exit(EXIT_FAILURE);
@@ -114,41 +108,23 @@ int main() {
 	glfwGetFramebufferSize(window, &width, &height);
 	
 	initText();
-	root = Frame(0,0,width,height,0,19,false,"strawberry pie");
+	root = Frame(0,0,width,height,0,19,false,"chicago");
 
 	root.dontDrawChildren();
 
-	twrctrl = Frame(0,0,282,141,1,19,true,"car control");
-	camctrl = Frame(2000,0,162,141,1,19,true,"camera control");
+	camctrl = Frame(100,300,162,50,1,0,true,"");
 
+	Button clb = Button(0,0,80,50,1,"left",NULL,cleft);
+	Button crb = Button(200,0,80,50,1,"right",NULL,cright);
 
-	Button lb = Button(0,0,80,120,1,"left",NULL,left);
-	Button rb = Button(200,0,80,120,1,"right",NULL,right);
-	Button ub = Button(80,0,120,60,1,"fwd",NULL,up);
-	Button db = Button(80,60,120,60,1,"back",NULL,down);
-
-	Button clb = Button(0,0,80,120,1,"left",NULL,cleft);
-	Button crb = Button(200,0,80,120,1,"right",NULL,cright);
-
-
-	
-	twrctrl.attach(&rb);
-	twrctrl.attach(&lb);
-	twrctrl.attach(&ub);
-	twrctrl.attach(&db);
 	camctrl.attach(&clb);
 	camctrl.attach(&crb);
-	root.attach(&twrctrl);
 	root.attach(&camctrl);
 	
 	cangle = 0.f;
 	bool click = false;
 	double mouseX, mouseY;
-
-	gtex = SOIL_load_OGL_texture("ground.png",SOIL_LOAD_AUTO,SOIL_CREATE_NEW_ID,SOIL_FLAG_NTSC_SAFE_RGB);
-	
-
-
+	loadMedia();
 	while(!glfwWindowShouldClose(window)) {
 		
 		glfwGetCursorPos(window, &mouseX, &mouseY);
@@ -163,40 +139,63 @@ int main() {
 		}
 		root.update(mouseX, mouseY);
 
-		
 		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 		
 		setup2D(width, height);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
+
 		root.draw();
-		
-		
 		root.setup3D(height, 0.f);
+
+		gluLookAt(0,0.9f,2.5f,0,0.1f,0,0,1,0);
 		
-		gluLookAt(10 * sin(cangle * DEG_TO_RAD),5,10 * cos(cangle * DEG_TO_RAD),0,0,0,0,1,0);
-
-
+		glShadeModel(GL_SMOOTH);
+		glDisable(GL_BLEND);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		glTranslatef(0,-0.5f,0);
-		glBindTexture(GL_TEXTURE_2D, gtex);
-		drawBox(10,0.1f,10,0.5f,0.5f,0,1);
-		glTranslatef(0,0.5f,0);
-		glTranslatef(bx,0.f,by);
-		glRotatef(tangle + 90,0,1,0);
+		//glScalef(10.01f,10.01f,10.01f);
+		glRotatef(cangle,0,1.f,0);
+		//glRotatef(-90,1,0,0);
+			
 		
-		drawBox(2,1,3,0,0.5f,0,1);
-		glTranslatef(0,0.75f,1);
+		for (size_t i = 0; i < shapes.size(); i++) {
 
-		drawBox(1,0.5f,1,0.75f,0,0,1);
+			if(shapes[i].material.diffuse_texname == string("p1.jpg")){
+				glBindTexture(GL_TEXTURE_2D,tex1);}
+			if(shapes[i].material.diffuse_texname == string("p2.png")){
+				glBindTexture(GL_TEXTURE_2D,tex2);}
+			if(shapes[i].material.diffuse_texname == string("1174.png")){
+				glBindTexture(GL_TEXTURE_2D,tex3);}
+
+			glBegin(GL_TRIANGLES);
+			for (size_t f = 0; f < shapes[i].mesh.indices.size(); f++) {
+				glNormal3f(shapes[i].mesh.normals[3*shapes[i].mesh.indices[f]],
+					shapes[i].mesh.normals[3*shapes[i].mesh.indices[f]+1],
+					shapes[i].mesh.normals[3*shapes[i].mesh.indices[f]+2]);
+				
+				glTexCoord2f(shapes[i].mesh.texcoords[2*shapes[i].mesh.indices[f]],
+					shapes[i].mesh.texcoords[2*shapes[i].mesh.indices[f]+1]);
+
+				glVertex3f(shapes[i].mesh.positions[3*shapes[i].mesh.indices[f]],
+					shapes[i].mesh.positions[3*shapes[i].mesh.indices[f]+1],
+					shapes[i].mesh.positions[3*shapes[i].mesh.indices[f]+2]);
+			}
+			glEnd();
+		}
+
+		
 
 		setup2D(width, height);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		twrctrl.draw(root.getBorderThickness(), root.getBorderThickness() + root.getTitleHeight());
+
 		camctrl.draw(root.getBorderThickness(), root.getBorderThickness() + root.getTitleHeight());
+
+		
+
+
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}

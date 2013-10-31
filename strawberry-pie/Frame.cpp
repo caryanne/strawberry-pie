@@ -92,6 +92,7 @@ void Frame::draw(float xOffset, float yOffset) {
 	}
 }
 void Frame::setup3D(float height, float yOffset) {
+	glClear(GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	
@@ -108,7 +109,7 @@ void Frame::setup3D(float height, float yOffset) {
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	glShadeModel(GL_FLAT);
-	float pos[] = {0, 1, -1, 0};
+	float pos[] = {20,3,20,0};
 	glLightfv(GL_LIGHT0, GL_POSITION, pos);
 	glEnable(GL_TEXTURE_2D);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
