@@ -1,6 +1,7 @@
-spreadem
+strawberry pie
 ========
-math/sim shit
+
+![logo](pie.jpg)
 
 todo
 --------
@@ -16,3 +17,6 @@ requires
 --------
 GLFW3  
 Font-Stash
+Bullet
+tiny-obj-loader
+SOIL
