@@ -41,6 +41,9 @@
     <ClCompile Include="soil\stb_image_aug.c">
       <Filter>tools\soil</Filter>
     </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>tools\model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h">
@@ -88,6 +91,15 @@
     <ClInclude Include="soil\stbi_DDS_aug.h">
       <Filter>tools\soil</Filter>
     </ClInclude>
+    <ClInclude Include="bullet\btBulletCollisionCommon.h">
+      <Filter>tools\bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="bullet\btBulletDynamicsCommon.h">
+      <Filter>tools\bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>tools\model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
@@ -110,6 +122,12 @@
     </Filter>
     <Filter Include="tools\soil">
       <UniqueIdentifier>{119f6a73-aab5-47ad-821f-2de733a22389}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tools\bullet">
+      <UniqueIdentifier>{de55c400-c125-4062-b447-89714142ed30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tools\model">
+      <UniqueIdentifier>{668545fb-f400-4a97-96a7-e61ffc14c4d8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
