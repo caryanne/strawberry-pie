@@ -1,5 +1,5 @@
-#ifndef Frame_H
-#define Frame_H
+#ifndef FRAME_H
+#define FRAME_H
 
 #include <string>
 #include "Component.h"

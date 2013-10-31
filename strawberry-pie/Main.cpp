@@ -1,4 +1,3 @@
-
 #include <math.h>
 #include <windows.h>
 #include "GLFW/glfw3.h"
@@ -8,26 +7,22 @@
 #include "Shapes.h"
 #include "Shapes3d.h"
 #include "Text.h"
-
 #include "Frame.h"
 #include "Button.h"
-
+#include "Model.h"
 #include "soil\SOIL.h"
 #include "tiny_obj_loader.h"
 
+#include "bullet\btBulletDynamicsCommon.h"
+
+
 #define DEG_TO_RAD 3.141592654 / 180.0
 
+GLFWwindow *window;
 Frame root;
-
 Frame camctrl;
 
 float cangle;
-
-unsigned tex1;
-unsigned tex2;
-unsigned tex3;
-
-vector<tinyobj::shape_t> shapes;
 
 void errorCallback(int error, const char* desc) {
 	fputs(desc, stderr);
@@ -58,43 +53,11 @@ void setup2D(double w, double h) {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-/*void setup3D(double x, double y, double w, double h) {
-	glClear(GL_DEPTH_BUFFER_BIT);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	
-	gluPerspective(45.f, w / h, 0.1f, 100.f);
-	glViewport(x, y - h, w, h);
-	glDepthFunc(GL_LEQUAL);
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_BLEND);
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-	glShadeModel(GL_FLAT);
-	float pos[] = {0, 1, -1, 0};
-	glLightfv(GL_LIGHT0, GL_POSITION, pos);
-	glEnable(GL_TEXTURE_2D);
-	
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-}*/
-
-void loadMedia() {
-	tinyobj::LoadObj(shapes,"pib2.obj");
-	tex2 = SOIL_load_OGL_texture("p2.png",SOIL_LOAD_AUTO,SOIL_CREATE_NEW_ID,SOIL_FLAG_INVERT_Y|SOIL_FLAG_NTSC_SAFE_RGB);
-	tex1 = SOIL_load_OGL_texture("p1.jpg",SOIL_LOAD_AUTO,SOIL_CREATE_NEW_ID,SOIL_FLAG_INVERT_Y|SOIL_FLAG_NTSC_SAFE_RGB);
-	tex3 = SOIL_load_OGL_texture("1174.png",SOIL_LOAD_AUTO,SOIL_CREATE_NEW_ID,SOIL_FLAG_INVERT_Y|SOIL_FLAG_NTSC_SAFE_RGB);
-}
-
-
 int main() {
-	
-	GLFWwindow *window;
-	
+
 	glfwSetErrorCallback(errorCallback);
 	if(!glfwInit())
 		exit(EXIT_FAILURE);
-	
 
 	window = glfwCreateWindow(1360,768, "strawberry pie", glfwGetPrimaryMonitor(), NULL);
 	if(!window) {
@@ -124,7 +87,9 @@ int main() {
 	cangle = 0.f;
 	bool click = false;
 	double mouseX, mouseY;
-	loadMedia();
+
+	Model puss = Model("pib2.obj");
+
 	while(!glfwWindowShouldClose(window)) {
 		
 		glfwGetCursorPos(window, &mouseX, &mouseY);
@@ -159,33 +124,7 @@ int main() {
 		glRotatef(cangle,0,1.f,0);
 		//glRotatef(-90,1,0,0);
 			
-		
-		for (size_t i = 0; i < shapes.size(); i++) {
-
-			if(shapes[i].material.diffuse_texname == string("p1.jpg")){
-				glBindTexture(GL_TEXTURE_2D,tex1);}
-			if(shapes[i].material.diffuse_texname == string("p2.png")){
-				glBindTexture(GL_TEXTURE_2D,tex2);}
-			if(shapes[i].material.diffuse_texname == string("1174.png")){
-				glBindTexture(GL_TEXTURE_2D,tex3);}
-
-			glBegin(GL_TRIANGLES);
-			for (size_t f = 0; f < shapes[i].mesh.indices.size(); f++) {
-				glNormal3f(shapes[i].mesh.normals[3*shapes[i].mesh.indices[f]],
-					shapes[i].mesh.normals[3*shapes[i].mesh.indices[f]+1],
-					shapes[i].mesh.normals[3*shapes[i].mesh.indices[f]+2]);
-				
-				glTexCoord2f(shapes[i].mesh.texcoords[2*shapes[i].mesh.indices[f]],
-					shapes[i].mesh.texcoords[2*shapes[i].mesh.indices[f]+1]);
-
-				glVertex3f(shapes[i].mesh.positions[3*shapes[i].mesh.indices[f]],
-					shapes[i].mesh.positions[3*shapes[i].mesh.indices[f]+1],
-					shapes[i].mesh.positions[3*shapes[i].mesh.indices[f]+2]);
-			}
-			glEnd();
-		}
-
-		
+		puss.render();
 
 		setup2D(width, height);
 		glMatrixMode(GL_MODELVIEW);
