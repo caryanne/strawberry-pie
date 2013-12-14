@@ -12,6 +12,7 @@ void Model::load(string filename) { //add error handling to this bullshit
 		if(mTextures.find(mModel[i].material.diffuse_texname) == mTextures.end()) {
 			mTextures[mModel[i].material.diffuse_texname] =
 				SOIL_load_OGL_texture(mModel[i].material.diffuse_texname.c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y|SOIL_FLAG_NTSC_SAFE_RGB);
+			printf("loading texture %s..\n", mModel[i].material.diffuse_texname.c_str());
 		}
 	}
 }

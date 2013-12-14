@@ -55,7 +55,7 @@ int main() {
 	if(!glfwInit())
 		exit(EXIT_FAILURE);
 
-	window = glfwCreateWindow(1360, 768, "strawberry pie", glfwGetPrimaryMonitor(), NULL);
+	window = glfwCreateWindow(800, 600, "strawberry pie", NULL, NULL);
 	if(!window) {
 		glfwTerminate();
 		exit(EXIT_FAILURE);
